@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\logparser\LogParser.csproj" />
+    <ProjectReference Include="..\TestUtils\TestUtils.csproj" />
 	<None Include="..\dataset\*.log">
 	  <Link>dataset\%(Filename)%(Extension)</Link>
 	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

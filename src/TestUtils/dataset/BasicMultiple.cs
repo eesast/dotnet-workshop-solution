@@ -2,9 +2,9 @@
 
 using LogParser.Models;
 
-namespace test_01_basic.dataset
+namespace TestUtils.dataset
 {
-    internal class BasicMultiple
+    public class BasicMultiple
     {
         public static readonly List<(LogEventType, LogEntry)> LogData = new List<(LogEventType, LogEntry)>
         {

@@ -16,12 +16,13 @@
 
     public abstract record LogEntry(
         int LineNo,
-        DateTimeOffset TimeStamp,
+        DateTimeOffset Timestamp,
         string PodName,
         LogSeverity Severity,
         LogEventType EventType
     )
     {
+        public abstract TResult Accept<TResult>(ILogEntryVisitor<TResult> visitor);
     }
 
     public sealed record CallLogEntry(
@@ -34,6 +35,10 @@
         int DurationMs
     ) : LogEntry(LineNo, Timestamp, PodName, Severity, LogEventType.Call)
     {
+        public override TResult Accept<TResult>(ILogEntryVisitor<TResult> visitor)
+        {
+            return visitor.Visit(this);
+        }
     }
 
     public sealed record RequestLogEntry(
@@ -47,6 +52,10 @@
         int StatusCode)
         : LogEntry(LineNo, Timestamp, PodName, Severity, LogEventType.Request)
     {
+        public override TResult Accept<TResult>(ILogEntryVisitor<TResult> visitor)
+        {
+            return visitor.Visit(this);
+        }
     }
 
     public sealed record InternalLogEntry(
@@ -58,6 +67,10 @@
         string ExceptionMessage)
         : LogEntry(LineNo, Timestamp, PodName, Severity, LogEventType.Internal)
     {
+        public override TResult Accept<TResult>(ILogEntryVisitor<TResult> visitor)
+        {
+            return visitor.Visit(this);
+        }
     }
 
 }

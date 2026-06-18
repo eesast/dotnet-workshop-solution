@@ -48,7 +48,7 @@ CSV_OUTPUT_PATH = Path("gen_logs/generated_logs.csv")
 CS_OUTPUT_PATH = Path("gen_logs/GeneratedLogs.cs")
 
 # 生成的 C# 文件信息。
-CS_NAMESPACE = "test.dataset"
+CS_NAMESPACE = "TestUtils.dataset"
 CS_CLASS_NAME = "Dataset"
 
 # 随机种子。设置为 None 表示每次运行结果都不同。
@@ -300,7 +300,7 @@ using LogParser.Models;
 
 namespace {CS_NAMESPACE}
 {{
-    internal class {CS_CLASS_NAME}
+    public class {CS_CLASS_NAME}
     {{
         public static readonly List<(LogEventType, LogEntry)> LogData = new List<(LogEventType, LogEntry)>
         {{
