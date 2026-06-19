@@ -1,5 +1,6 @@
 ﻿using LogParser.Models;
 using LogParser.Parser;
+using System.Text.Json;
 using TestUtils;
 using TestUtils.dataset;
 
@@ -44,7 +45,39 @@ namespace test_01_basic
             TestUtilsClass.VerifyInternalLogEntryExample(result[0]);
         }
 
-        [TestMethod(DisplayName = "T1.2.4 TestParseMultipleLogEntries")]
+        [TestMethod(DisplayName = "T1.2.4 TestParseNoEventLogEntryFailed")]
+        public void TestParseNoEventLogEntryFailed()
+        {
+            var parser = new LogFileParser();
+            Assert.Throws<FormatException>(() => parser.Parse(new StringReader(TestUtilsClass.NoEventExampleFailed)).ToList(),
+                "Parsing a log entry with no event type should throw a FormatException");
+        }
+
+        [TestMethod(DisplayName = "T1.2.5 TestParseCallLogExampleFailed")]
+        public void TestParseCallLogExampleFailed()
+        {
+            var parser = new LogFileParser();
+            Assert.Throws<JsonException>(() => parser.Parse(new StringReader(TestUtilsClass.CallLogExampleFailed)).ToList(),
+                "Parsing a call log entry with no duration-ms should throw a JsonException");
+        }
+
+        [TestMethod(DisplayName = "T1.2.6 TestParseRequestLogExampleFailed")]
+        public void TestParseRequestLogExampleFailed()
+        {
+            var parser = new LogFileParser();
+            Assert.Throws<JsonException>(() => parser.Parse(new StringReader(TestUtilsClass.RequestLogExampleFailed)).ToList(),
+                "Parsing a request log entry with no method should throw a JsonException");
+        }
+
+        [TestMethod(DisplayName = "T1.2.7 TestParseInternalLogExampleFailed")]
+        public void TestParseInternalLogExampleFailed()
+        {
+            var parser = new LogFileParser();
+            Assert.Throws<Exception>(() => parser.Parse(new StringReader(TestUtilsClass.InternalLogExampleFailed)).ToList(),
+                "Parsing a internal log entry with an exeption in a wrong format should throw an Exception");
+        }
+
+        [TestMethod(DisplayName = "T1.2.8 TestParseMultipleLogEntries")]
         public void TestParseMultipleLogEntries()
         {
             var parser = new LogFileParser();
@@ -71,7 +104,7 @@ namespace test_01_basic
             TestUtilsClass.VerifyInternalLogEntryExample(result[2]);
         }
 
-        [TestMethod(DisplayName = "T1.2.5 TestParseLogEntriesInFile")]
+        [TestMethod(DisplayName = "T1.2.9 TestParseLogEntriesInFile")]
         public void TestParseLogEntriesInFile()
         {
             var parser = new LogFileParser();
@@ -96,7 +129,7 @@ namespace test_01_basic
             TestUtilsClass.VerifyInternalLogEntryExample(result[2]);
         }
 
-        [TestMethod(DisplayName = "T1.2.6 TestParseMultipleLogEntriesInFile")]
+        [TestMethod(DisplayName = "T1.2.10 TestParseMultipleLogEntriesInFile")]
         public void TestParseMultipleLogEntriesInFile()
         {
             var parser = new LogFileParser();
