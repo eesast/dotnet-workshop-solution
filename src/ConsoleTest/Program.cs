@@ -34,6 +34,12 @@ Console.WriteLine();
     Console.WriteLine();
 }
 
+{
+    var strs = (IEnumerable<string>)new List<string>() { "a", "b", "c" };
+    Console.WriteLine(strs.FirstOrDefault());
+    Console.WriteLine(strs.ToList().Count);
+}
+
 //{
 //    var analyzer = new LogFileAnalyzer("dataset/multiple-logs");
 //    Console.WriteLine(analyzer.CurrentDirectory);

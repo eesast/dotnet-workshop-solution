@@ -14,6 +14,7 @@ namespace LogAnalyzer
         private readonly Dictionary<string, AnalysisResult> _analysisResults = new();
 
         public string? CurrentDirectory => _currentDirectory;
+        public bool HasDirectory => _currentDirectory is not null;
         public bool IsAnalyzing
         {
             get

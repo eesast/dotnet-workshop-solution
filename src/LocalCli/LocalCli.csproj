@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+  	<ProjectReference Include="..\LogAnalyzerRpc\LogAnalyzerRpc.csproj" />
   	<ProjectReference Include="..\LogAnalyzer\LogAnalyzer.csproj" />
   	<ProjectReference Include="..\LogParser\LogParser.csproj" />
   	<ProjectReference Include="..\TestUtils\TestUtils.csproj" />

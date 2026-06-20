@@ -87,7 +87,10 @@ namespace LocalCli
                 };
                 switch (choice)
                 {
-                    case 1: case 2: case 3: case 4:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
                         actions[choice](analyzer);
                         break;
                     case 5:
@@ -164,7 +167,25 @@ namespace LocalCli
         private static void AnalyzeAll(LogFileAnalyzer analyzer)
         {
             int degreeOfParallelism = ReadDegreeOfParallelism();
-            analyzer.AnalyzeAll(degreeOfParallelism);
+            try
+            {
+                analyzer.AnalyzeAll(degreeOfParallelism);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine("Argument out of range: " + ex.ToString());
+                return;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine("Invalid argument: " + ex.ToString());
+                return;
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine("Invalid operation: " + ex.ToString());
+                return;
+            }
             Console.WriteLine($"Analysis completed");
         }
 
