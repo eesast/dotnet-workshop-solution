@@ -7,7 +7,7 @@ using TestUtils.dataset;
 namespace test_01_basic
 {
     [TestClass]
-    public sealed class TestLogFileParserDump
+    public sealed class Test_1_3_LogFileParserDump
     {
         private static void VerifyLogEntryDumper(LogEntry targetEntry, Dictionary<string, string> kvresult)
         {

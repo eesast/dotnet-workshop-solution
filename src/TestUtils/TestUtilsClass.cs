@@ -113,5 +113,42 @@ namespace TestUtils
         {
             VerifyInternalLogEntry(InternalLogExampleEntry, entry);
         }
+
+        public static void VerifyLogFile(List<(LogEventType, LogEntry)> targetLogEntries, IReadOnlyList<LogEntry> result)
+        {
+            Assert.HasCount(targetLogEntries.Count, result, $"Parse result should contain exactly {targetLogEntries.Count} entries, got {result.Count}");
+
+            // Zip together target and actual entries to validate them in pairs
+            foreach (var ((targetEventType, targetLogEntry), entry) in targetLogEntries.Zip(result, (target, actual) => (Target: target, Actual: actual)))
+            {
+                switch (targetEventType)
+                {
+                    case LogEventType.Call:
+                        Assert.IsInstanceOfType(targetLogEntry, typeof(CallLogEntry),
+                            $"Dataset error: Expected a CallLogEntry, got {entry.GetType().Name}, at line {targetLogEntry.LineNo}");
+                        Assert.IsInstanceOfType(entry, typeof(CallLogEntry),
+                            $"Expected a CallLogEntry, got {entry.GetType().Name}, at line {entry.LineNo}");
+                        TestUtilsClass.VerifyCallLogEntry((CallLogEntry)targetLogEntry, entry);
+                        break;
+                    case LogEventType.Request:
+                        Assert.IsInstanceOfType(targetLogEntry, typeof(RequestLogEntry),
+                            $"Dataset error: Expected a RequestLogEntry, got {entry.GetType().Name}, at line {targetLogEntry.LineNo}");
+                        Assert.IsInstanceOfType(entry, typeof(RequestLogEntry),
+                            $"Expected a RequestLogEntry, got {entry.GetType().Name}, at line {entry.LineNo}");
+                        TestUtilsClass.VerifyRequestLogEntry((RequestLogEntry)targetLogEntry, entry);
+                        break;
+                    case LogEventType.Internal:
+                        Assert.IsInstanceOfType(targetLogEntry, typeof(InternalLogEntry),
+                            $"Dataset error: Expected an InternalLogEntry, got {entry.GetType().Name}, at line {targetLogEntry.LineNo}");
+                        Assert.IsInstanceOfType(entry, typeof(InternalLogEntry),
+                            $"Expected an InternalLogEntry, got {entry.GetType().Name}, at line {entry.LineNo}");
+                        TestUtilsClass.VerifyInternalLogEntry((InternalLogEntry)targetLogEntry, entry);
+                        break;
+                    default:
+                        Assert.Fail($"Unknown log event type: {targetEventType}, at line {targetLogEntry.LineNo}");
+                        break;
+                }
+            }
+        }
     }
 }

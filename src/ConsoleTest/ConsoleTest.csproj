@@ -12,9 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LogAnalyzer\LogAnalyzer.csproj" />
     <ProjectReference Include="..\LogParser\LogParser.csproj" />
-	  <None Include="..\dataset\*.log">
-		  <Link>dataset\%(Filename)%(Extension)</Link>
+	  <None Include="..\dataset\**\*.log">
+		  <Link>dataset\%(RecursiveDir)%(Filename)%(Extension)</Link>
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
   </ItemGroup>

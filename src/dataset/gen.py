@@ -7,6 +7,7 @@ import csv
 import json
 import random
 import uuid
+import argparse
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -31,7 +32,7 @@ CALL_TOPOLOGY: Dict[str, List[str]] = {
 }
 
 # 日志数量。
-LOG_COUNT = 200
+LOG_COUNT = 2000
 
 # 起始时间。脚本会保证生成的 timestamp 从小到大。
 START_TIME = datetime(2026, 6, 5, 16, 0, 0, tzinfo=timezone.utc)
@@ -313,6 +314,22 @@ namespace {CS_NAMESPACE}
     output_path.write_text(content, encoding="utf-8")
 
 def main() -> None:
+    global LOG_COUNT, CS_NAMESPACE, CS_CLASS_NAME, CSV_OUTPUT_PATH, CS_OUTPUT_PATH
+
+    parser = argparse.ArgumentParser(description="Generate log dataset.")
+    parser.add_argument("-c", "--count", type=int, default=LOG_COUNT, help="Number of log lines to generate.")
+    parser.add_argument("-n", "--namespace", type=str, default=CS_NAMESPACE, help="C# namespace for the generated dataset.")
+    parser.add_argument("-C", "--classname", type=str, default=CS_CLASS_NAME, help="C# class name for the generated dataset.")
+    parser.add_argument("--csv", type=str, default=str(CSV_OUTPUT_PATH), help="Output path for the generated CSV file.")
+    parser.add_argument("--cs", type=str, default=str(CS_OUTPUT_PATH), help="Output path for the generated C# file.")
+    args = parser.parse_args()
+
+    LOG_COUNT = args.count
+    CS_NAMESPACE = args.namespace
+    CS_CLASS_NAME = args.classname
+    CSV_OUTPUT_PATH = Path(args.csv)
+    CS_OUTPUT_PATH = Path(args.cs)
+
     lines = generate_log_lines(LOG_COUNT)
     write_csv(lines, CSV_OUTPUT_PATH)
     write_csharp_dataset(lines, CS_OUTPUT_PATH)
