@@ -34,12 +34,12 @@ Console.WriteLine();
     Console.WriteLine();
 }
 
-{
-    var analyzer = new LogFileAnalyzer("dataset/multiple-logs");
-    Console.WriteLine(analyzer.CurrentDirectory);
-    Console.WriteLine(string.Join(", ", analyzer.GetLogFiles()));
-    analyzer.AnalyzeAll(4);
-    analyzer.TryGetAnalysisResult("20260728.log", out var analysisResults);
-    Console.WriteLine(analysisResults!.Entries.Count);
-    Console.WriteLine();
-}
+//{
+//    var analyzer = new LogFileAnalyzer("dataset/multiple-logs");
+//    Console.WriteLine(analyzer.CurrentDirectory);
+//    Console.WriteLine(string.Join(", ", analyzer.GetLogFiles()));
+//    analyzer.AnalyzeAll(4);
+//    analyzer.TryGetAnalysisResult("20260728.log", out var analysisResults);
+//    Console.WriteLine(analysisResults!.Entries.Count);
+//    Console.WriteLine();
+//}

@@ -40,6 +40,7 @@
     <File Path=".editorconfig" />
   </Folder>
   <Project Path="ConsoleTest/ConsoleTest.csproj" Id="11187506-c3c1-4c3d-9e72-2b01def016ec" />
+  <Project Path="LocalCli/LocalCli.csproj" Id="5ebb0407-d263-47b4-9b44-07cc55df9263" />
   <Project Path="LogAnalyzer/LogAnalyzer.csproj" />
   <Project Path="LogParser/LogParser.csproj" Id="7aadd0d2-0829-4b5b-875c-4d49394f1a8e" />
   <Project Path="test-00-prepare/test-00-prepare.csproj" />
