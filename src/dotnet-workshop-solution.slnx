@@ -1,8 +1,12 @@
 <Solution>
+  <Folder Name="/DataGen/">
+    <File Path="DataGen/.gitignore" />
+    <File Path="DataGen/batch.py" />
+    <File Path="DataGen/gen.py" />
+  </Folder>
   <Folder Name="/dataset/">
     <File Path="dataset/basic-multiple.log" />
     <File Path="dataset/basic.log" />
-    <File Path="dataset/gen.py" />
   </Folder>
   <Folder Name="/dataset/multiple-logs/">
     <File Path="dataset/multiple-logs/20260701.log" />
