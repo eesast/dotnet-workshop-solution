@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Nullable>enable</Nullable>
+    <ApplicationIcon>..\LogAnalyzerClient\Assets\log-analyzer-256x256.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,5 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LogAnalyzerClient\LogAnalyzerClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Update="log-analyzer-256x256.ico" Link=".ico" />
   </ItemGroup>
 </Project>

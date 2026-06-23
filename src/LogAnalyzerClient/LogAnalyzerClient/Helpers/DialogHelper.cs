@@ -62,7 +62,7 @@ namespace LogAnalyzerClient.Helpers
         {
             await Task.Run(() =>
             {
-                BrowserInterop.Alert($"{title}\n{message}");
+                BrowserInterop.Alert($"[{title}]\n\n{message}");
             });
         }
     }
