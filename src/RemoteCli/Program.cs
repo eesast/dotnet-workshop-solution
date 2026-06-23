@@ -1,7 +1,9 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
-using LogAnalyzer.Grpc;
+using LogAnalyzerRpc;
+using LogAnalyzerRpc.Protos;
+using LogParser.Visitors;
 using Microsoft.Extensions.Logging;
 
 namespace RemoteCli
@@ -238,7 +240,9 @@ namespace RemoteCli
                             }
                             break;
                         case GetAnalysisResultResponse.PayloadOneofCase.LogEntry:
-                            var kvresult = response.LogEntry.Fields;
+                            var entry = GrpcTypeConverter.ConvertFromGrpc(response.LogEntry);
+                            var dumper = new KeyValueVisitor();
+                            var kvresult = dumper.Dump(entry);
                             Console.WriteLine(string.Join(", ", kvresult.Select(kv => $"{kv.Key}: {kv.Value}")));
                             break;
                         default:

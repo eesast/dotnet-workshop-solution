@@ -40,6 +40,11 @@
     <File Path="dataset/multiple-logs/20260729.log" />
     <File Path="dataset/multiple-logs/20260730.log" />
   </Folder>
+  <Folder Name="/LogAnalyzerClient/">
+    <Project Path="LogAnalyzerClient/LogAnalyzerClient.Browser/LogAnalyzerClient.Browser.csproj" />
+    <Project Path="LogAnalyzerClient/LogAnalyzerClient.Desktop/LogAnalyzerClient.Desktop.csproj" />
+    <Project Path="LogAnalyzerClient/LogAnalyzerClient/LogAnalyzerClient.csproj" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
   </Folder>

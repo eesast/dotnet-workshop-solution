@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\logparser\LogParser.csproj" />
+    <ProjectReference Include="..\LogParser\LogParser.csproj" />
     <ProjectReference Include="..\TestUtils\TestUtils.csproj" />
 	<None Include="..\dataset\*.log">
 	  <Link>dataset\%(Filename)%(Extension)</Link>

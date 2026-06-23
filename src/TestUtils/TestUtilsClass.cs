@@ -2,8 +2,16 @@
 
 namespace TestUtils
 {
-    public static class TestUtilsClass
+    [TestClass]
+    public class TestUtilsClass
     {
+        [TestMethod]
+        public void TestMethod()
+        {
+            // Empty method to disable warnings
+            // as MSTest projects usually have at least one test method
+        }
+
         public static readonly string CallLogExample = "0,2026-06-05T16:00:29.045Z,userservice-0,\"{\"\"severity\"\": \"\"INFO\"\", \"\"event\"\": \"\"call\"\", \"\"request-id\"\": \"\"3a013a08-6853-49fc-8f06-50daeb5c1e51\"\", \"\"target-service\"\": \"\"authservice\"\", \"\"duration-ms\"\": 18}\"";
         public static readonly string RequestLogExample = "1,2026-06-05T16:00:31.086Z,userservice-1,\"{\"\"severity\"\": \"\"INFO\"\", \"\"event\"\": \"\"request\"\", \"\"request-id\"\": \"\"1177c344-115e-4f85-b8ec-c9164d132b79\"\", \"\"method\"\": \"\"GET\"\", \"\"path\"\": \"\"/api/user/john\"\", \"\"status-code\"\": 404}\"";
         public static readonly string InternalLogExample = "2,2026-06-05T16:05:45.322Z,gateway-0,\"{\"\"severity\"\": \"\"ERROR\"\", \"\"event\"\": \"\"internal\"\", \"\"exception\"\": \"\"System.InvalidOperationException: Failed to load gateway routing configuration.\"\"}\"";

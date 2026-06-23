@@ -1,9 +1,11 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using LogAnalyzer;
-using LogAnalyzer.Grpc;
+using LogAnalyzerRpc.Protos;
 using LogAnalyzerAgent.Applications;
 using Microsoft.Extensions.Logging.Abstractions;
 using TestUtils.dataset;
+using LogAnalyzerRpc;
+using TestUtils;
 
 namespace test_03_async_grpc
 {
@@ -146,6 +148,13 @@ namespace test_03_async_grpc
                         Assert.AreEqual(AgentErrorCode.NoAgentError, result.Status.Code);
                         Assert.AreEqual(GetAnalysisResultResponse.PayloadOneofCase.LogEntry, result.PayloadCase);
                     }
+
+                    TestUtilsClass.VerifyCallLogEntryExample(
+                        GrpcTypeConverter.ConvertFromGrpc(basicAnalyzeResult[1].LogEntry));
+                    TestUtilsClass.VerifyRequestLogEntryExample(
+                        GrpcTypeConverter.ConvertFromGrpc(basicAnalyzeResult[2].LogEntry));
+                    TestUtilsClass.VerifyInternalLogEntryExample(
+                        GrpcTypeConverter.ConvertFromGrpc(basicAnalyzeResult[3].LogEntry));
                 }
                 {
                     var basicFailAnalyzeResult = session.GetAnalysisResult(new GetAnalysisResultRequest()
@@ -218,6 +227,10 @@ namespace test_03_async_grpc
                         Assert.AreEqual(AgentErrorCode.NoAgentError, result.Status.Code);
                         Assert.AreEqual(GetAnalysisResultResponse.PayloadOneofCase.LogEntry, result.PayloadCase);
                     }
+
+                    var entries = basicMultipleAnalyzeResult.Skip(1).Select(
+                                    x => GrpcTypeConverter.ConvertFromGrpc(x.LogEntry)).ToList();
+                    TestUtilsClass.VerifyLogFile(BasicMultiple.LogData, entries);
                 }
             }
         }

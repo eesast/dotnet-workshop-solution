@@ -1,7 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using LogAnalyzer;
-using LogAnalyzer.Grpc;
+using LogAnalyzerRpc.Protos;
 using LogAnalyzerRpc;
 using LogParser.Visitors;
 using LogAnalyzerAgent.Applications;

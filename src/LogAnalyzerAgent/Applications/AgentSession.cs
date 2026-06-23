@@ -1,7 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using LogAnalyzer;
-using LogAnalyzer.Grpc;
+using LogAnalyzerRpc.Protos;
 using LogAnalyzerRpc;
 using LogParser.Visitors;
 
@@ -258,14 +258,9 @@ namespace LogAnalyzerAgent.Applications
                             });
                             foreach (var entry in result.Entries)
                             {
-                                var kvdumper = new KeyValueVisitor();
-                                var kvresult = kvdumper.Dump(entry)
-                                                .Select(kv => new LogFieldMessage() { Key = kv.Key, Value = kv.Value });
-                                var logEntry = new LogEntryMessage();
-                                logEntry.Fields.AddRange(kvresult);
                                 analysisResult.Add(new GetAnalysisResultResponse
                                 {
-                                    LogEntry = logEntry,
+                                    LogEntry = GrpcTypeConverter.ConvertToGrpc(entry),
                                     Status = new OperationStatusMessage()
                                     {
                                         Success = true,
