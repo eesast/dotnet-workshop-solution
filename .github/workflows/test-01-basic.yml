@@ -19,8 +19,8 @@ jobs:
       - name: Run tests
         working-directory: ./src
         run: |
-          dotnet test test-00-prepare
-          dotnet test test-01-basic
+          dotnet test test-00-prepare -c Release
+          dotnet test test-01-basic -c Release
 
       - name: Check report existence
         id: check_files
@@ -30,4 +30,6 @@ jobs:
 
       - name: Report exists
         if: steps.check_files.outputs.files_exists == 'false'
-        run: "echo Missing report: docs/01-basic/report.md"
+        run: |
+          echo Missing report: docs/01-basic/report.md
+          exit 1
