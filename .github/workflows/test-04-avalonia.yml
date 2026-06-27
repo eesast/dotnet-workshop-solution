@@ -1,7 +1,7 @@
-name: test-01-basic
+name: test-04-avalonia
 on: [push]
 jobs:
-  test-01-basic:
+  test-04-avalonia:
     if: true
     runs-on: windows-latest
     steps:
@@ -16,22 +16,18 @@ jobs:
         working-directory: ./src
         run: dotnet build
 
-      - name: Test prepare
+      - name: Run all tests
         working-directory: ./src
-        run: dotnet test test-00-prepare -c Release
-
-      - name: Test basic
-        working-directory: ./src
-        run: dotnet test test-01-basic -c Release
+        run: dotnet test -c Release
 
       - name: Check report existence
         id: check_files
         uses: andstor/file-existence-action@v3
         with:
-          files: "docs/01-basic/report.md"
+          files: "docs/04-avalonia/report.md"
 
       - name: Report exists
         if: steps.check_files.outputs.files_exists == 'false'
         run: |
-          echo Missing report: docs/01-basic/report.md
+          echo Missing report: docs/04-avalonia/report.md
           exit 1

@@ -1,7 +1,7 @@
-name: test-01-basic
+name: test-02-multithreading
 on: [push]
 jobs:
-  test-01-basic:
+  test-02-multithreading:
     if: true
     runs-on: windows-latest
     steps:
@@ -24,14 +24,18 @@ jobs:
         working-directory: ./src
         run: dotnet test test-01-basic -c Release
 
+      - name: Test multithreading
+        working-directory: ./src
+        run: dotnet test test-02-multithreading -c Release
+
       - name: Check report existence
         id: check_files
         uses: andstor/file-existence-action@v3
         with:
-          files: "docs/01-basic/report.md"
+          files: "docs/02-multithreading/report.md"
 
       - name: Report exists
         if: steps.check_files.outputs.files_exists == 'false'
         run: |
-          echo Missing report: docs/01-basic/report.md
+          echo Missing report: docs/02-multithreading/report.md
           exit 1
