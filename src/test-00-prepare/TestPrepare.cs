@@ -6,7 +6,7 @@
         [TestMethod(DisplayName = "T0.1.1 TestWelcome")]
         public void TestWelcome()
         {
-            bool isEnvironmentReady = false;
+            bool isEnvironmentReady = true;
             Assert.IsTrue(isEnvironmentReady, "Welcome to your dotnet-workshop journey!");
         }
     }
