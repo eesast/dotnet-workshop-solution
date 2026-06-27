@@ -1,5 +1,8 @@
 name: test-03-async-grpc
-on: [push]
+on:
+  pull_request:
+    branches: [feat/03-async-grpc]
+
 jobs:
   test-03-async-grpc:
     if: true

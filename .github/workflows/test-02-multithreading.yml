@@ -1,5 +1,8 @@
 name: test-02-multithreading
-on: [push]
+on:
+  pull_request:
+    branches: [feat/02-multithreading]
+
 jobs:
   test-02-multithreading:
     if: true

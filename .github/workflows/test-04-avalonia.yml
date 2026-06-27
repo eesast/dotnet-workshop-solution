@@ -1,5 +1,8 @@
 name: test-04-avalonia
-on: [push]
+on:
+  pull_request:
+    branches: [feat/04-avalonia]
+
 jobs:
   test-04-avalonia:
     if: true

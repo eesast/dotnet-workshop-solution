@@ -1,5 +1,8 @@
 name: test-01-basic
-on: [push]
+on:
+  pull_request:
+    branches: [feat/01-basic]
+
 jobs:
   test-01-basic:
     if: true
