@@ -19,7 +19,7 @@ jobs:
 
       - name: Build solution
         working-directory: ./src
-        run: dotnet build
+        run: dotnet build -c Release
 
       - name: Run all tests
         working-directory: ./src
