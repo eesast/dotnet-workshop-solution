@@ -313,8 +313,21 @@ namespace {CS_NAMESPACE}
 
     output_path.write_text(content, encoding="utf-8")
 
+def valid_datetime(s: str) -> datetime:
+    """尝试将输入的字符串解析为 UTC 的 datetime 对象。"""
+    try:
+        # datetime.fromisoformat 支持解析 '2026-06-05T08:00:00' 或带时区的格式
+        dt = datetime.fromisoformat(s)
+        if dt.tzinfo is None:
+            # 如果输入没带时区，默认当作 UTC 处理
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt
+    except ValueError:
+        msg = f"Not a valid datetime: '{s}'. Use ISO format like YYYY-MM-DDTHH:MM:SS"
+        raise argparse.ArgumentTypeError(msg)
+
 def main() -> None:
-    global LOG_COUNT, CS_NAMESPACE, CS_CLASS_NAME, CSV_OUTPUT_PATH, CS_OUTPUT_PATH
+    global LOG_COUNT, CS_NAMESPACE, CS_CLASS_NAME, CSV_OUTPUT_PATH, CS_OUTPUT_PATH, START_TIME
 
     parser = argparse.ArgumentParser(description="Generate log dataset.")
     parser.add_argument("-c", "--count", type=int, default=LOG_COUNT, help="Number of log lines to generate.")
@@ -322,6 +335,7 @@ def main() -> None:
     parser.add_argument("-C", "--classname", type=str, default=CS_CLASS_NAME, help="C# class name for the generated dataset.")
     parser.add_argument("--csv", type=str, default=str(CSV_OUTPUT_PATH), help="Output path for the generated CSV file.")
     parser.add_argument("--cs", type=str, default=str(CS_OUTPUT_PATH), help="Output path for the generated C# file.")
+    parser.add_argument("-s", "--start-time", type=valid_datetime, default=START_TIME, help="Start time for logs (ISO format, e.g., 2026-06-05T08:00:00 or 2026-06-05T08:00:00Z).")
     args = parser.parse_args()
 
     LOG_COUNT = args.count
@@ -329,6 +343,7 @@ def main() -> None:
     CS_CLASS_NAME = args.classname
     CSV_OUTPUT_PATH = Path(args.csv)
     CS_OUTPUT_PATH = Path(args.cs)
+    START_TIME = args.start_time
 
     lines = generate_log_lines(LOG_COUNT)
     write_csv(lines, CSV_OUTPUT_PATH)
