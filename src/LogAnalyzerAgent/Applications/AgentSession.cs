@@ -43,9 +43,9 @@ namespace LogAnalyzerAgent.Applications
             return Task.FromResult(new Empty());
         }
 
-        public Task<AgentStatusResponse> GetAgentStatus(Empty empty, CancellationToken cancellationToken)
+        public Task<GetAgentStatusResponse> GetAgentStatus(Empty empty, CancellationToken cancellationToken)
         {
-            var response = new AgentStatusResponse();
+            var response = new GetAgentStatusResponse();
             try
             {
                 response.HasDirectory = _analyzer.HasDirectory;

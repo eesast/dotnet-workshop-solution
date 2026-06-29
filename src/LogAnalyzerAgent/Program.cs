@@ -1,4 +1,5 @@
 ﻿using LogAnalyzer;
+using LogAnalyzerAgent.Applications;
 using LogAnalyzerAgent.Services;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
@@ -8,15 +9,18 @@ builder.WebHost.ConfigureKestrel(options =>
 {
     options.ConfigureEndpointDefaults(listenOptions =>
     {
-        listenOptions.Protocols = HttpProtocols.Http2;
+        listenOptions.Protocols = HttpProtocols.Http2;              // for Desktop
+        // listenOptions.Protocols = HttpProtocols.Http1AndHttp2;   // for Browser
     });
 });
 
 builder.Services.AddGrpc();
 builder.Services.AddCors();
 
-builder.Services.AddSingleton<LogFileAnalyzer>();   // 依赖注入
-builder.Services.AddSingleton<AgentService>();      // 有状态服务需要单例
+// 依赖注入，且有状态服务需要单例
+builder.Services.AddSingleton<LogFileAnalyzer>();
+builder.Services.AddSingleton<AgentSession>();
+builder.Services.AddSingleton<AgentService>();
 
 var app = builder.Build();
 
@@ -41,8 +45,10 @@ app.UseCors(policy =>
         .AllowCredentials();
 });
 
+// for Browser
 app.UseGrpcWeb();
 
+// for Browser
 app.MapGrpcService<AgentService>()
     .EnableGrpcWeb();
 

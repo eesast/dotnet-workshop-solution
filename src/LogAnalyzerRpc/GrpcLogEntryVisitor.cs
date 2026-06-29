@@ -6,7 +6,7 @@ namespace LogAnalyzerRpc
 {
     internal class GrpcLogEntryVisitor : ILogEntryVisitor<LogEntryMessage>
     {
-        public static readonly GrpcLogEntryVisitor Instance = new();
+        public static GrpcLogEntryVisitor Instance { get; } = new();
 
         private GrpcLogEntryVisitor() { }
 

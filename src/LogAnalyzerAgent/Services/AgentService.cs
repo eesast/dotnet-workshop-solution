@@ -12,9 +12,9 @@ namespace LogAnalyzerAgent.Services
     {
         private readonly AgentSession _session;
 
-        public AgentService(LogFileAnalyzer analyzer, ILoggerFactory loggerFactory)
+        public AgentService(AgentSession session)
         {
-            _session = new AgentSession(analyzer, loggerFactory);
+            _session = session;
         }
 
         public override Task<Empty> Ping(Empty empty, ServerCallContext context)
@@ -22,7 +22,7 @@ namespace LogAnalyzerAgent.Services
             return _session.Ping(empty, context.CancellationToken);
         }
 
-        public override Task<AgentStatusResponse> GetAgentStatus(Empty empty, ServerCallContext context)
+        public override Task<GetAgentStatusResponse> GetAgentStatus(Empty empty, ServerCallContext context)
         {
             return _session.GetAgentStatus(empty, context.CancellationToken);
         }

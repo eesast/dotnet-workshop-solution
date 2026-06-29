@@ -9,7 +9,7 @@ import "google/protobuf/timestamp.proto";
 
 service LogAnalyzerAgentService {
 	rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty);
-	rpc GetAgentStatus(google.protobuf.Empty) returns (AgentStatusResponse);
+	rpc GetAgentStatus(google.protobuf.Empty) returns (GetAgentStatusResponse);
 	rpc ChangeDirectory(ChangeDirectoryRequest) returns (ChangeDirectoryResponse);
 	rpc GetLogFiles(google.protobuf.Empty) returns (GetLogFilesResponse);
 	rpc AnalyzeAll(AnalyzeAllRequest) returns (AnalyzeAllResponse);
@@ -32,7 +32,7 @@ message OperationStatusMessage {
   string message = 3;
 }
 
-message AgentStatusResponse {
+message GetAgentStatusResponse {
   OperationStatusMessage status = 1;
   bool has_directory = 2;
   string current_directory = 3;
