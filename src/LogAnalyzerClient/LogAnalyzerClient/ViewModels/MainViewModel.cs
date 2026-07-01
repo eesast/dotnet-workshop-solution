@@ -38,6 +38,16 @@ namespace LogAnalyzerClient.ViewModels
         [ObservableProperty]
         private string _currentAddress = "";
 
+        private static class ConnectStatusString
+        {
+            public const string NOT_CONNECTED = "Not connected.";
+            public const string CONNECTING = "Connecting...";
+            public const string CONNECTED = "Connected.";
+            public const string CONNECT_FAILED = "Connect failed.";
+        }
+        [ObservableProperty]
+        private string _connectStatus = ConnectStatusString.NOT_CONNECTED;
+
         [ObservableProperty]
         private ObservableCollection<LogFileItem> _logFiles = new();
 
@@ -63,14 +73,18 @@ namespace LogAnalyzerClient.ViewModels
             {
                 try
                 {
+                    ConnectStatus = ConnectStatusString.CONNECTING;
                     _client = AppService.ClientFactory.CreateClient(address);
                     await _client.PingAsync(new Empty());
                     CurrentAddress = address;
+                    ConnectStatus = ConnectStatusString.CONNECTED;
                     LogFiles.Clear();
                 }
                 catch (Exception ex)
                 {
+                    ConnectStatus = ConnectStatusString.CONNECT_FAILED;
                     await DialogHelper.ShowMessageDialogAsync("Error", $"Failed to connect to agent: {ex.Message}");
+                    ConnectStatus = ConnectStatusString.NOT_CONNECTED;
                 }
             }
         }

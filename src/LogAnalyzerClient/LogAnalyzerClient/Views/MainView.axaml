@@ -30,7 +30,8 @@ to set the actual DataContext for runtime, set the DataContext property in code 
                 BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
                 <TextBlock Text="[Status] " />
-                <TextBlock Text="Agent address: " />
+                <TextBlock Text="{Binding ConnectStatus}" />
+                <TextBlock Text=" Agent address: " />
                 <TextBlock Text="{Binding CurrentAddress}" />
                 <TextBlock Text="; Current Directory: " />
                 <TextBlock Text="{Binding DirectoryPath}" />

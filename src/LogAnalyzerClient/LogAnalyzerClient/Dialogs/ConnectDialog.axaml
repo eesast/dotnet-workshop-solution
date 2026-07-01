@@ -11,7 +11,7 @@
     <StackPanel Margin="15" Spacing="10">
         <TextBlock Text="Please input the address of Agent:" />
         <TextBox Name="AddressTextBox"
-                 PlaceholderText="http://localhost:5000" />
+                 PlaceholderText="e.g. http://localhost:5000" />
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Spacing="5">
