@@ -128,8 +128,7 @@ to set the actual DataContext for runtime, set the DataContext property in code 
 
                         <ListBox Name="ResultEntryListBox"
                                 Grid.Row="2"
-                                ItemsSource="{Binding ResultEntries, Mode=OneWay}"
-                                SelectedItem="SelectedResultEntry">
+                                ItemsSource="{Binding ResultEntries, Mode=OneWay}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate x:DataType="models:LogFields">
                                     <TextBlock Text="{Binding Summary, Mode=OneWay}" TextWrapping="NoWrap" />
