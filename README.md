@@ -1,6 +1,6 @@
 # 科协暑培（.NET 部分）学习型工程参考解答
 
-本仓库是 [科协暑培（.NET 部分）学习型工程](https://github.com/eesast/dotnet-workshop) 中基础功能部分的参考解答
+本仓库是 [科协暑培（.NET 部分）学习型工程](https://github.com/eesast/dotnet-workshop) 中基础功能部分的参考解答，`src` 中是一个基础功能的参考实现，`docs` 中是问答题的参考解答。
 
 ## 开源许可
 
