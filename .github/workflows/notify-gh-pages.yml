@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Trigger gh-pages deployment
         env:
-          GH_TOKEN: ${{ secrets.DOTNET_WORKSHOP_DEMO_TRIGGER_CI_TEST }}
+          GH_TOKEN: ${{ secrets.DOTNET_WORKSHOP_TRIGGER_CI }}
         run: |
           gh api \
             --method POST \
