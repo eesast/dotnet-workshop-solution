@@ -325,7 +325,9 @@ namespace LogAnalyzerClient.ViewModels
                 """
                 LogAnalyzerClient
                 EESAST Software Center
-                https://github.com/eesast/dotnet-workshop
+                Solution to https://github.com/eesast/dotnet-workshop
+                Source Code (internal reference, not visible to the public):
+                    https://github.com/eesast/dotnet-workshop-solution
                 """);
         }
     }
