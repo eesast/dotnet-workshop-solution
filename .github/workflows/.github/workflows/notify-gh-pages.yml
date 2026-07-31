@@ -1,0 +1,32 @@
+name: Notify dotnet-workshop to rebuild demo
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notify-gh-pages
+  cancel-in-progress: true
+
+jobs:
+  notify:
+    name: Trigger GitHub Pages workflow
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger gh-pages deployment
+        env:
+          GH_TOKEN: ${{ secrets.DOTNET_WORKSHOP_DEMO_TRIGGER_CI_TEST }}
+        run: |
+          gh api \
+            --method POST \
+            repos/eesast/dotnet-workshop/dispatches \
+            -f event_type='demo-updated'
