@@ -112,7 +112,7 @@ namespace LogAnalyzerClient.ViewModels
         [RelayCommand]
         private async Task ChangeDirectoryAsync()
         {
-            await WithClientNotNull(async() =>
+            await WithClientNotNull(async () =>
             {
                 var request = new ChangeDirectoryRequest()
                 {
@@ -175,35 +175,38 @@ namespace LogAnalyzerClient.ViewModels
 
         private async Task AnalyzeFilesAsync(IReadOnlyList<string> fileNames)
         {
-            var degreeOfParallelism = ReadDegreeOfParallelism();
-            if (degreeOfParallelism is null)
+            await WithClientNotNull(async () =>
             {
-                return;
-            }
+                var degreeOfParallelism = ReadDegreeOfParallelism();
+                if (degreeOfParallelism is null)
+                {
+                    return;
+                }
 
-            if (fileNames.Count == 0)
-            {
-                await DialogHelper.ShowMessageDialogAsync("Error",
-                    "No log files selected. Please select at least one log file.");
-                return;
-            }
+                if (fileNames.Count == 0)
+                {
+                    await DialogHelper.ShowMessageDialogAsync("Error",
+                        "No log files selected. Please select at least one log file.");
+                    return;
+                }
 
-            var request = new AnalyzeFilesRequest()
-            {
-                DegreeOfParallelism = degreeOfParallelism.Value,
-            };
-            request.FileNames.AddRange(fileNames);
-            var response = await _client!.AnalyzeFilesAsync(request);
-            if (response.Status.Success)
-            {
-                await DialogHelper.ShowMessageDialogAsync("Analysis Started",
-                    "Log files have been started to analyzed.");
-            }
-            else
-            {
-                await DialogHelper.ShowMessageDialogAsync("Error",
-                        $"{response.Status.Code}: {response.Status.Message}");
-            }
+                var request = new AnalyzeFilesRequest()
+                {
+                    DegreeOfParallelism = degreeOfParallelism.Value,
+                };
+                request.FileNames.AddRange(fileNames);
+                var response = await _client!.AnalyzeFilesAsync(request);
+                if (response.Status.Success)
+                {
+                    await DialogHelper.ShowMessageDialogAsync("Analysis Started",
+                        "Log files have been started to analyzed.");
+                }
+                else
+                {
+                    await DialogHelper.ShowMessageDialogAsync("Error",
+                            $"{response.Status.Code}: {response.Status.Message}");
+                }
+            });
         }
 
         [RelayCommand]
@@ -229,27 +232,30 @@ namespace LogAnalyzerClient.ViewModels
         [RelayCommand]
         private async Task AnalyzeAllAsync()
         {
-            var degreeOfParallelism = ReadDegreeOfParallelism();
-            if (degreeOfParallelism is null)
+            await WithClientNotNull(async () =>
             {
-                return;
-            }
+                var degreeOfParallelism = ReadDegreeOfParallelism();
+                if (degreeOfParallelism is null)
+                {
+                    return;
+                }
 
-            var request = new AnalyzeAllRequest()
-            {
-                DegreeOfParallelism = degreeOfParallelism.Value,
-            };
-            var response = await _client!.AnalyzeAllAsync(request);
-            if (response.Status.Success)
-            {
-                await DialogHelper.ShowMessageDialogAsync("Analysis Started",
-                    "Log files have been started to analyzed.");
-            }
-            else
-            {
-                await DialogHelper.ShowMessageDialogAsync("Error",
-                    $"{response.Status.Code}: {response.Status.Message}");
-            }
+                var request = new AnalyzeAllRequest()
+                {
+                    DegreeOfParallelism = degreeOfParallelism.Value,
+                };
+                var response = await _client!.AnalyzeAllAsync(request);
+                if (response.Status.Success)
+                {
+                    await DialogHelper.ShowMessageDialogAsync("Analysis Started",
+                        "Log files have been started to analyzed.");
+                }
+                else
+                {
+                    await DialogHelper.ShowMessageDialogAsync("Error",
+                        $"{response.Status.Code}: {response.Status.Message}");
+                }
+            });
         }
 
         [RelayCommand]
